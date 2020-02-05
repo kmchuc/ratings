@@ -38,7 +38,7 @@ class Movie(db.Model):
                         primary_key=True,
                         autoincrement=True)
 
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(300), nullable=False)
     release_date = db.Column(db.DateTime, nullable=False)
     url = db.Column(db.String(300), nullable=False)
 
@@ -50,8 +50,8 @@ class Rating(db.Model):
     rating_id = db.Column(db.Integer, 
                           primary_key=True, 
                           autoincrement=True)
-    movie_id = db.Column(db.Integer, nullable=False, unique=True)
-    user_id = db.Column(db.Integer, nullable=False, unique=True)
+    movie_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
     score = db.Column(db.Integer, nullable=False)
 
 ##############################################################################
