@@ -47,12 +47,28 @@ class Rating(db.Model):
 
     __tablename__ = "ratings"
 
-    rating_id = db.Column(db.Integer, 
-                          primary_key=True, 
+    rating_id = db.Column(db.Integer,
+                          primary_key=True,
                           autoincrement=True)
-    movie_id = db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, nullable=False)
-    score = db.Column(db.Integer, nullable=False)
+    movie_id = db.Column(db.Integer,
+                        db.ForeignKey('movies.movie_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    score = db.Column(db.Integer)
+
+    user = db.relationship("User", 
+                            backref=db.backref("ratings", 
+                                                order_by=rating_id))
+
+    movie = db.relationship("Movie", 
+                            backref=db.backref("ratings",
+                                                order_by=rating_id))
+
+    def __repr__(self):
+
+        return f"""<Rating rating_id={self.rating_id}
+                    movie_id={self.movie_id}
+                    user_id={self.user_id}
+                    score={self.score}>"""
 
 ##############################################################################
 # Helper functions

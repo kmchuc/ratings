@@ -25,8 +25,7 @@ def load_users():
         row = row.rstrip()
         user_id, age, gender, occupation, zipcode = row.split("|")
 
-        user = User(user_id=user_id,
-                    age=age,
+        user = User(age=age,
                     zipcode=zipcode)
 
         # We need to add to the session or it won't ever be stored
@@ -42,15 +41,14 @@ def load_movies():
         row = row.rstrip()
         each_movie = row.split("|")
 
-        title = each_movie[1][:-6]
+        title = each_movie[1][:-7]
         date = each_movie[2]
         format_date = "%d-%b-%Y"
         release_date = datetime.strptime(date, format_date)
 
 
 
-        movie = Movie(movie_id=each_movie[0],
-                      title=title,
+        movie = Movie(title=title,
                       release_date=release_date,
                       url=each_movie[4])
 
@@ -65,8 +63,6 @@ def load_ratings():
         row = row.rstrip()
         user_id, movie_id, score, timestamp = row.split("\t")
 
-        print(score)
-
         rating = Rating(movie_id=movie_id,
                         user_id=user_id,
                         score=score)
@@ -74,8 +70,6 @@ def load_ratings():
         db.session.add(rating)
 
     db.session.commit()
-
-
 
 
 def set_val_user_id():
